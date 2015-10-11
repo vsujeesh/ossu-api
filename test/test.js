@@ -26,5 +26,5 @@ describe('Models', () => {
 });
 
 describe('Auth', () => {
-  require('./suite_auth')(OssServer);
+  require('./suite_auth')(db);
 });
