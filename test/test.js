@@ -24,3 +24,7 @@ describe('api server', () => {
 describe('Models', () => {
   require('./suite_models.js')(db);
 });
+
+describe('Auth', () => {
+  require('./suite_auth')(OssServer);
+});
