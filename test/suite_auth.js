@@ -1,4 +1,4 @@
-/* global describe before xit */
+/* global describe before xit it */
 'use strict';
 let express = require('express');
 let AuthRouter = require('./../auth');
@@ -20,9 +20,9 @@ module.exports = (db) => {
   });
 
   describe('Registration api', () => {
-    xit('GET /register describes available registration strategies that have a name and an endpoint', (done) => {
+    it('GET /register describes available registration strategies that have a name and an endpoint', (done) => {
       request(app)
-        .get('register')
+        .get('/register')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -41,13 +41,13 @@ module.exports = (db) => {
         });
     });
 
-    xit('POST /register/:strategy fails with 405 for a non-existent strategy', (done) => {
+    it('POST /register/:strategy fails with 405 for a non-existent strategy', (done) => {
       request(app)
         .post('/register/pinky-promise')
         .expect(405, done);
     });
 
-    xit('POST /register/github fails with 400 when not enough data is supplied', (done) => {
+    it('POST /register/github fails with 400 when not enough data is supplied', (done) => {
       request(app)
         .post('/register/github', {})
         .set('Accept', 'application/json')

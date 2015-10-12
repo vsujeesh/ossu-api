@@ -6,6 +6,7 @@ require('dotenv').load();
 // load deps
 let express = require('express');
 let Api = require('./api');
+let Auth = require('./auth');
 let mongoose = require('mongoose');
 let fs = require('fs');
 
@@ -28,11 +29,12 @@ fs.readdirSync('./models/').forEach((file) => {
 // mount the api router
 app.use('/api', Api(app));
 
-  // TODO: mount an auth router
+// mount an authentication router
+app.use('/auth', Auth(app));
+
 // db.once('open', onDatabaseConnection);
 module.exports = app;
 
 app.listen(process.env.PORT || 8080, () => {
   console.log('Server listening on port', process.env.PORT);
 });
-

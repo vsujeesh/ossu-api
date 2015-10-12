@@ -7,7 +7,7 @@ let UsersApi = require('./users');
 
 /**
  * Returns an express router to handle api endpoints.
- * Receives an instance of the express app.
+ * Receives an instance of the main express app.
 */
 module.exports = (app) => {
   let router = express.Router();
