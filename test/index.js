@@ -27,3 +27,7 @@ describe('api server', () => {
 describe('Models', () => {
   require('./models')(db);
 });
+
+describe('Auth', () => {
+  require('./auth.js')(Server, db);
+});

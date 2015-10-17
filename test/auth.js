@@ -1,84 +1,71 @@
-/* global describe before xit it */
+/* global describe xit it */
 'use strict';
-let express = require('express');
-let AuthRouter = require('./../auth');
 let request = require('supertest');
-let assert = require('chai').assert;
+let expect = require('chai').expect;
 /**
  * Tests for the Auth suite.
  * Receives an instance of the database, loaded with models.
  * Should create its own express app to use the router in auth/index
  */
-module.exports = (db) => {
-  let app = express();
-
-  before((done) => {
-    // mount the router
-    app.use('/', AuthRouter(app));
-
-    done();
-  });
+module.exports = (app, db) => {
+  // before((done) => {
+  //   done();
+  // });
 
   describe('Registration api', () => {
-    it('GET /register describes available registration strategies that have a name and an endpoint', (done) => {
+    it('GET /auth/register describes available registration strategies that have a name and an endpoint', (done) => {
       request(app)
-        .get('/register')
+        .get('/auth/register')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, res) => {
-          if (err) {
-            return done(err);
-          }
-
-          if (res.body.length > 0) {
-            assert.isDefined(res.body[0]);
-            assert.isDefined(res.body[0]['name']);
-            assert.isDefined(res.body[0]['endpoint']);
-          }
-
+          expect(err).to.be.null;
+          expect(res.body[0]).to.exist;
+          expect(res.body[0]['name']).to.exist;
+          expect(res.body[0]['callback']).to.exist;
           done();
         });
     });
 
-    it('POST /register/:strategy fails with 405 for a non-existent strategy', (done) => {
+    it('POST /auth/register/:strategy fails with 405 for a non-existent strategy', (done) => {
       request(app)
-        .post('/register/pinky-promise')
+        .post('/auth/register/pinky-promise')
         .expect(405, done);
     });
 
-    it('POST /register/github fails with 400 when not enough data is supplied', (done) => {
+    it('POST /auth/register/github fails with 400 when not enough data is supplied', (done) => {
       request(app)
-        .post('/register/github', {})
+        .post('/auth/register/github', {})
         .set('Accept', 'application/json')
         .expect(400, done);
     });
 
-    xit('POST /register/github allows registration through github and returns user data', (done) => {
-      let github_user = {
+    xit('POST /auth/register/github allows registration through github and returns user data', (done) => {
+      // let github_user = {
 
-      };
+      // };
 
-      request(app)
-        .post('/register/github', github_user)
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end((err, res) => {
-          if (err) {
-            return done(err);
-          }
+      // request(app)
+      //   .post('/auth/register/github', github_user)
+      //   .set('Accept', 'application/json')
+      //   .expect('Content-Type', /json/)
+      //   .expect(200)
+      //   .end((err, res) => {
+      //     if (err) {
+      //       return done(err);
+      //     }
 
-          let body = res.body;
+      //     let body = res.body;
 
-          assert.isDefined(body);
-          assert.isDefined(body.user && body.user._id);
+      //     assert.isDefined(body);
+      //     assert.isDefined(body.user && body.user._id);
 
-          done();
-        });
+      //     done();
+      //   });
     });
 
-    xit('POST /register/github fails with 409 when user is already registered');
+    xit('POST /auth/register/github fails with 409 when user is already registered');
   });
 
   describe('Session api', () => {
