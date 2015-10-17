@@ -1,39 +1,7 @@
 'use strict';
 
-// load env variables
-require('dotenv').load();
-
 // load deps
-let express = require('express');
-let Api = require('./api');
-let Auth = require('./auth');
-let mongoose = require('mongoose');
-let fs = require('fs');
-
-// load the app
-let app = express();
-let db;
-
-// connect to the db
-mongoose.connect(process.env.NODE_ENV === 'test' ? process.env.MONGO_TEST_URI : process.env.MONGO_URI);
-
-db = mongoose.connection;
-
-app.set('db', db);
-
-// compile models
-fs.readdirSync('./models/').forEach((file) => {
-  require('./models/' + file)();
-});
-
-// mount the api router
-app.use('/api', Api(app));
-
-// mount an authentication router
-app.use('/auth', Auth(app));
-
-// db.once('open', onDatabaseConnection);
-module.exports = app;
+let app = require('./helpers/server');
 
 app.listen(process.env.PORT || 8080, () => {
   console.log('Server listening on port', process.env.PORT);
