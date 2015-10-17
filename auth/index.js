@@ -12,7 +12,8 @@ let active_strategies = loader('/auth/strategies').map((module) => {
   return {
     name: strategy.name,
     endpoint: strategy.endpoint,
-    router: strategy.router
+    router: strategy.router,
+    data: strategy.authData || null
   };
 });
 
@@ -44,7 +45,8 @@ function showActiveStrategies (req, res) {
   let strategies = active_strategies.map((strategy) => {
     return {
       name: strategy.name,
-      callback: '/register/' + strategy.endpoint
+      callback: '/register/' + strategy.endpoint,
+      data: strategy.data
     };
   });
 

@@ -24,6 +24,9 @@ module.exports = (app, db) => {
           expect(res.body[0]).to.exist;
           expect(res.body[0]['name']).to.exist;
           expect(res.body[0]['callback']).to.exist;
+          expect(res.body[0]['data']).to.exist;
+          expect(res.body[0]['data']['client_id']).to.not.be.null;
+          expect(res.body[0]['data']['scope']).to.exist;
           done();
         });
     });
