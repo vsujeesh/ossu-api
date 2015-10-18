@@ -51,11 +51,13 @@ Router.post('/', (req, res) => {
 });
 
 /** Export strategy information*/
-exports.name = 'Github';
-exports.endpoint = 'github';
-exports.router = Router;
-exports.url = 'https://github.com/login/oauth/authorize';
-exports.data = {
-  client_id: process.env.GITHUB_CLIENT_ID || null,
-  scope: 'user:email'
+exports.strategy = {
+  name: 'Github',
+  endpoint: 'github',
+  router: Router,
+  url: 'https://github.com/login/oauth/authorize',
+  data: {
+    client_id: process.env.GITHUB_CLIENT_ID || null,
+    scope: 'user:email'
+  }
 };

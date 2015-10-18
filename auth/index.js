@@ -4,17 +4,8 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let helmet = require('helmet');
 let loader = require('../helpers/loader');
-
-// TODO: use the loader helper to load these
 let active_strategies = loader('/auth/strategies').map((module) => {
-  let strategy = module.File;
-
-  return {
-    name: strategy.name,
-    endpoint: strategy.endpoint,
-    router: strategy.router,
-    data: strategy.data || null
-  };
+  return module.File.strategy;
 });
 
 /**
