@@ -13,7 +13,7 @@ let active_strategies = loader('/auth/strategies').map((module) => {
     name: strategy.name,
     endpoint: strategy.endpoint,
     router: strategy.router,
-    data: strategy.authData || null
+    data: strategy.data || null
   };
 });
 
@@ -39,7 +39,7 @@ module.exports = (app) => {
   return router;
 };
 
-/** 
+/**
  * Show active strategies
  */
 function showActiveStrategies (req, res) {
@@ -55,7 +55,7 @@ function showActiveStrategies (req, res) {
   res.status(200).json(strategies);
 }
 
-/** 
+/**
  * Make sure strategy is defined and active
  */
 function isActiveStrategy (req, res, next) {
