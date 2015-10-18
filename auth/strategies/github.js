@@ -2,6 +2,9 @@
 
 let express = require('express');
 let Router = express.Router();
+let AuthHelper = require('../../helpers/auth');
+
+Router.use(AuthHelper.cors);
 
 Router.post('/', (req, res) => {
   if (!req.body.code) {
@@ -11,6 +14,8 @@ Router.post('/', (req, res) => {
     res.sendStatus(200).end();
   }
 });
+
+/** Export strategy information*/
 
 exports.name = 'Github';
 exports.endpoint = 'github';
