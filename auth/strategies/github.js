@@ -20,13 +20,31 @@ Router.post('/', (req, res) => {
         code: req.body.code
       },
       json: true
-    }, (err, r, body) => {
-      if (err) {
-        return res.status(500).send((err) ? err.dsecription : 'Unknown Error.');
+    }, (error, response, body) => {
+      if (error) {
+        return res.status(500).send((error) ? error.dsecription : 'Authentication Error.');
       }
 
       if (body.access_token) {
-        res.status(200).send(body);
+        request({
+          method: 'GET',
+          uri: 'https://api.github.com/user',
+          headers: {
+            'User-Agent': process.env.GITHUB_APP_NAME || 'OSS-API',
+            Authorization: 'token ' + body.access_token
+          }
+        }, (error, response, body) => {
+          if (error) {
+            return res.status(500).send('Could not retreive user data.');
+          }
+          // TODO: check user database
+            // New user? Create record, create token
+            // Current user? refresh json token
+          // TODO: return a JSON web token
+          res.status(200).send(body);
+        });
+      } else {
+        res.status(500).send('Unknown error.');
       }
     });
   }
