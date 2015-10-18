@@ -27,10 +27,8 @@ module.exports = (app) => {
   router.use(helmet());
   router.use(bodyParser.json());
 
-  /** Show active strategies */
   router.get('/', showActiveStrategies);
 
-  /** Make sure strategy is defined and active */
   router.post('/:strategy', isActiveStrategy);
 
   /** Mount the strategy-specific router */
@@ -41,6 +39,9 @@ module.exports = (app) => {
   return router;
 };
 
+/** 
+ * Show active strategies
+ */
 function showActiveStrategies (req, res) {
   let strategies = active_strategies.map((strategy) => {
     return {
@@ -54,6 +55,9 @@ function showActiveStrategies (req, res) {
   res.status(200).json(strategies);
 }
 
+/** 
+ * Make sure strategy is defined and active
+ */
 function isActiveStrategy (req, res, next) {
   let active = false;
 
