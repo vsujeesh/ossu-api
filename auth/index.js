@@ -46,7 +46,8 @@ function showActiveStrategies (req, res) {
     return {
       name: strategy.name,
       callback: '/auth/' + strategy.endpoint,
-      data: strategy.data
+      data: strategy.data,
+      auth_url: strategy.url
     };
   });
 

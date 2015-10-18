@@ -36,7 +36,8 @@ Router.post('/', (req, res) => {
 exports.name = 'Github';
 exports.endpoint = 'github';
 exports.router = Router;
-exports.authData = {
+exports.url = 'https://github.com/login/oauth/authorize';
+exports.data = {
   client_id: process.env.GITHUB_CLIENT_ID || null,
   scope: 'user:email'
 };
