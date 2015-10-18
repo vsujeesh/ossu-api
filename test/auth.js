@@ -44,34 +44,10 @@ module.exports = (app, db) => {
         .expect(400, done);
     });
 
-    xit('POST /auth/github allows registration through github and returns user data', (done) => {
-      //first, get an oauth code from github
-      
-
-      // let github_user = {
-
-      // };
-
-      // request(app)
-      //   .post('/auth/github', github_user)
-      //   .set('Accept', 'application/json')
-      //   .expect('Content-Type', /json/)
-      //   .expect(200)
-      //   .end((err, res) => {
-      //     if (err) {
-      //       return done(err);
-      //     }
-
-      //     let body = res.body;
-
-      //     assert.isDefined(body);
-      //     assert.isDefined(body.user && body.user._id);
-
-      //     done();
-      //   });
+    xit('POST /auth/github allows authentication through github and returns user data', (done) => {
+      // How do we test this???
+      // The route requires a `code`, which we can only get from github and that requires use interation (ie: click a button with the mouse)
     });
-
-    xit('POST /auth/github fails with 409 when user is already registered');
   });
 
   describe('Session api', () => {
