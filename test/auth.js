@@ -13,9 +13,9 @@ module.exports = (app, db) => {
   // });
 
   describe('Registration api', () => {
-    it('GET /auth/register describes available registration strategies that have a name and an endpoint', (done) => {
+    it('GET /auth describes available registration strategies that have a name and an endpoint', (done) => {
       request(app)
-        .get('/auth/register')
+        .get('/auth')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -31,26 +31,29 @@ module.exports = (app, db) => {
         });
     });
 
-    it('POST /auth/register/:strategy fails with 405 for a non-existent strategy', (done) => {
+    it('POST /auth/:strategy fails with 405 for a non-existent strategy', (done) => {
       request(app)
-        .post('/auth/register/pinky-promise')
+        .post('/auth/pinky-promise')
         .expect(405, done);
     });
 
-    it('POST /auth/register/github fails with 400 when not enough data is supplied', (done) => {
+    it('POST /auth/github fails with 400 when not enough data is supplied', (done) => {
       request(app)
-        .post('/auth/register/github', {})
+        .post('/auth/github', {})
         .set('Accept', 'application/json')
         .expect(400, done);
     });
 
-    xit('POST /auth/register/github allows registration through github and returns user data', (done) => {
+    xit('POST /auth/github allows registration through github and returns user data', (done) => {
+      //first, get an oauth code from github
+      
+
       // let github_user = {
 
       // };
 
       // request(app)
-      //   .post('/auth/register/github', github_user)
+      //   .post('/auth/github', github_user)
       //   .set('Accept', 'application/json')
       //   .expect('Content-Type', /json/)
       //   .expect(200)
@@ -68,7 +71,7 @@ module.exports = (app, db) => {
       //   });
     });
 
-    xit('POST /auth/register/github fails with 409 when user is already registered');
+    xit('POST /auth/github fails with 409 when user is already registered');
   });
 
   describe('Session api', () => {

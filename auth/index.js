@@ -28,14 +28,14 @@ module.exports = (app) => {
   router.use(bodyParser.json());
 
   /** Show active strategies */
-  router.get('/register', showActiveStrategies);
+  router.get('/', showActiveStrategies);
 
   /** Make sure strategy is defined and active */
-  router.post('/register/:strategy', isActiveStrategy);
+  router.post('/:strategy', isActiveStrategy);
 
   /** Mount the strategy-specific router */
   active_strategies.forEach((strategy) => {
-    router.use('/register/' + strategy.endpoint, strategy.router);
+    router.use('/' + strategy.endpoint, strategy.router);
   });
 
   return router;
@@ -45,7 +45,7 @@ function showActiveStrategies (req, res) {
   let strategies = active_strategies.map((strategy) => {
     return {
       name: strategy.name,
-      callback: '/register/' + strategy.endpoint,
+      callback: '/auth/' + strategy.endpoint,
       data: strategy.data
     };
   });
