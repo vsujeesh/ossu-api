@@ -8,6 +8,7 @@ module.exports = () => {
     username: { type: String, index: true },
     email: { type: String, index: true },
     github: {
+      id: { type: Number, index: true },
       nick: { type: String, index: true },
       link: String
     },
@@ -55,6 +56,17 @@ module.exports = () => {
       country: String
     }
   });
+
+  /**
+   * Find a user record using a github id.
+   */
+  userSchema.statics.findByGithubId = (id, cb) => {
+    return this.find({
+      github: {
+        id: id
+      }
+    }, cb);
+  };
 
   return mongoose.model('user', userSchema);
 };
