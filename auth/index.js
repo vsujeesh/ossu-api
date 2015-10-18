@@ -24,7 +24,7 @@ module.exports = (app) => {
 
   /** Mount the strategy-specific router */
   active_strategies.forEach((strategy) => {
-    router.use('/' + strategy.endpoint, strategy.router);
+    router.use('/' + strategy.endpoint, strategy.router(app.get('db')));
   });
 
   return router;
