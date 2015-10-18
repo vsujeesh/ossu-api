@@ -34,7 +34,8 @@
     "passport": "^0.3.0",
     "passport-github2": "0.1.9",
     "passport-http": "0.2.2",
-    "redis": "*"
+    "redis": "*",
+    "request": "^2.65.0"
   },
   "license": "MIT",
   "homepage": "https://github.com/open-source-society/ossu-api",
