@@ -28,6 +28,10 @@ describe('Models', () => {
   require('./models')(db);
 });
 
+describe('APIs', () => {
+  require('./apis')(Server, db);
+});
+
 describe('Auth', () => {
   require('./auth.js')(Server, db);
 });
