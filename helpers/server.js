@@ -5,7 +5,6 @@ require('dotenv').load();
 
 // load deps
 let express = require('express');
-let session = require('express-session');
 
 // load database
 let db = require('../helpers/database');
@@ -29,10 +28,6 @@ db['database'].once('connected', startServer);
 module.exports = app;
 
 function startServer () {
-  // use session storage
-  app.use(session({
-    secret: process.env.SESSION_SECRET || '0ThG9zitEectQpq7ThV2'
-  }));
   // set the api routes
   app.use('/api', Api(app));
   // mount auth routes

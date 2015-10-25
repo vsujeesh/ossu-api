@@ -3,6 +3,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let helmet = require('helmet');
+let AuthHelper = require('../helpers/auth');
 let loader = require('../helpers/loader');
 let active_strategies = loader('/auth/strategies').map((module) => {
   return module.File.strategy;
@@ -24,7 +25,14 @@ module.exports = (app) => {
 
   /** Mount the strategy-specific router */
   active_strategies.forEach((strategy) => {
-    router.use('/' + strategy.endpoint, strategy.router(app.get('db')));
+    // Load a CORS configuration for this strategy
+    router.use('/' + strategy.endpoint, AuthHelper.cors);
+    // Use the strategy-provided router
+    router.use('/' + strategy.endpoint, strategy.router());
+    // Make sure the user is active
+    router.use('/' + strategy.endpoint, AuthHelper.isActiveUser);
+    // Issue a token
+    router.use('/' + strategy.endpoint, AuthHelper.issueAccessToken);
   });
 
   return router;

@@ -31,8 +31,8 @@ module.exports = (app, db) => {
         .expect(200)
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res.body[0].username).to.equal(user1.username);
-          expect(res.body[1].username).to.equal(user2.username);
+          expect(res.body[0].name).to.equal(user1.name);
+          expect(res.body[1].name).to.equal(user2.name);
           done();
         });
     });
@@ -45,7 +45,7 @@ module.exports = (app, db) => {
         .expect(200)
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res.body.username).to.equal(user1.username);
+          expect(res.body.name).to.equal(user1.name);
           done();
         });
     });
@@ -60,13 +60,13 @@ module.exports = (app, db) => {
         .expect(201)
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res.body.username).to.equal(user.username);
+          expect(res.body.name).to.equal(user.name);
           done();
         });
     });
 
     it('should update a user\'s name', (done) => {
-      let user = { username: 'Marcus Badass Aurelius' };
+      let user = { name: 'Marcus Badass Aurelius' };
       request(app)
         .put('/api/users/' + user1._id)
         .set('Accept', 'application/json')
@@ -75,7 +75,7 @@ module.exports = (app, db) => {
         .expect(200)
         .end((err, res) => {
           expect(err).to.be.null;
-          expect(res.body.username).to.equal(user.username);
+          expect(res.body.name).to.equal(user.name);
           done();
         });
     });
