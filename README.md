@@ -10,13 +10,13 @@ Take a look at `.envsample` and rename it to `.env`. Edit the values according t
 
 ### Start the server
 ```
-npm start
+$ npm start
 ```
 
 ### Test an api route
-
-`curl localhost:PORT/api/sample`
-
+```
+$ curl localhost:PORT/api/sample
+```
 
 # Project Structure
 * `/api/index.js` is the base api file, from here, we load models.

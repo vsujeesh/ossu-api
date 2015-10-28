@@ -45,17 +45,17 @@ To validate:
 
 You need to have the devtools installed
 ```bash
-npm install --dev
+$ npm install --dev
 ```
 
 SemiStandard can be run with the tests
 ```bash
-npm test
+$ npm test
 ```
 
 Or standalone
 ```bash
-npm run check-style
+$ npm run check-style
 ```
 
 [apply]: https://github.com/open-source-society/computer-science/issues/180
