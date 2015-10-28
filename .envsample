@@ -1,3 +1,4 @@
 PORT=8080
+NODE_ENV=test
 MONGO_URI=mongodb://localhost:27017/ossu
 MONGO_TEST_URI=mongodb://localhost:27017/ossu_test
