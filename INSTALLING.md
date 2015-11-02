@@ -1,75 +1,67 @@
-# Installation
+# OSSU API
 
-### 1. Clone the repository
+**Open Source Society University API server**
+
+### Install Prerequisites
+* [Node.js](https://nodejs.org/en/download/)
+* [MongoDB](https://www.mongodb.org/downloads#production)
+
+### Clone the repository
 
 ```bash
 $ git clone git@github.com:open-source-society/ossu-api.git
 ```
 
-### 2. Load the dependencies (via NPM)
+### Configure Environment
+
+Take a look at `.envsample` and rename it to `.env`. Edit the values according to your environment (please do not bring `.env` into source control)
+
+### Install the dependencies (via NPM)
 
 ```bash
 $ npm install
 ```
 
-### 3a. Install MongoDB (via homebrew)
+### Create the data folder for MongoDB
 
-```bash
-$ brew update && brew install mongodb
-```
-
-### 3b. Install MongoDB (manual)
-
-Download the binaries
-```bash
-$ curl -O https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.0.6.tgz
-```
-
-Extract the binaries
-```bash
-$ tar -zxvf mongodb-osx-x86_64-3.0.6.tgz
-```
-
-Copy the extracted files to the target directory
-```bash
-$ mkdir /opt/mondodb
-$ cp -R -n mongodb-osx-x86_64-3.0.<6 class="tgz"></6>
-```
-
-Add MongoDB to the **PATH** variable
-```bash
-$ export PATH=/opt/mongodb/bin:$PATH
-```
-
-*Note: To permanently update PATH add the install directory to ~/.bashrc.*
-
-###4. Create the data folder
 ```bash
 $ mkdir data
 ```
 
-###5. Startup up MongoDB
+### Verify MongoDB is set up properly
+#### Start MongoDB
+
 ```bash
 $ mongod --dbpath ./data
 ```
 
-# Database Operations
-
-### Verify the connection to MongoDB
+#### Test MongoDB Connection
 ```bash
 $ node connected.js
+> Connection OK
 ```
 
-### Create a collection (ie table)
+#### Create a collection (ie table)
 ```bash
 $ node collection.js --create [name]
+> Collection: [name] created successfully
 ```
 
-### Delete a collection
+#### Delete a collection
 ```bash
 $ node collection.js --destroy [name]
+> Collection: [name] deleted successfully
 ```
 
-# Dependencies
+### Test server configuration 
 
-- MongoDB
+#### Start the server
+```
+$ npm start
+```
+
+#### Test an api route
+```
+$ curl localhost:PORT/api/users
+```
+If it doesn't return an error or `Cannot GET /api/users` then it is set up successfully.
