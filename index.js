@@ -1,39 +1,8 @@
-//load env variables
-require('dotenv').load();
-//load deps
-var express = require('express'),
-    Api     = require('./api'),
-    mongoose = require('mongoose');
-    
-//load the app
-var app = express(),
-    db;
+'use strict';
 
-//connect to the db
-mongoose.connect( process.env.MONGO_URI );
-db = mongoose.connection;
+// load deps
+let app = require('./helpers/server');
 
-db.once( 'open', onDatabaseConnection ); 
-
-
-
-
-/**
- * When the database is ready, mount the app routes.
- * app.get('db') will return the database connection.
- */
-function onDatabaseConnection() {
-    //set the connection object to be used in api files
-    app.set('db', db);
-
-    //mount the api router
-    app.use( '/api', Api(app) );
-
-    //TODO: mount an auth router
-    // app.use( '/auth', Auth() );
-
-    //start the server
-    app.listen( process.env.PORT || 8080, function(){
-        console.log( 'Server listening on port', process.env.PORT );
-    });
-}
+app.listen(process.env.PORT || 8080, () => {
+  console.log('Server listening on port', process.env.PORT);
+});

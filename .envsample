@@ -1,2 +1,7 @@
 PORT=8080
 MONGO_URI=mongodb://localhost:27017/ossu
+MONGO_TEST_URI=mongodb://localhost:27017/ossu_test
+JWT_SECRET=some_random_characters
+GITHUB_CLIENT_ID=12345
+GITHUB_CLIENT_SECRET=12345
+GITHUB_APP_NAME=My-Github-App-Name
