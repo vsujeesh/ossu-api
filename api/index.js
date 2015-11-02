@@ -41,7 +41,7 @@ module.exports = (app) => {
   /**
    * @apiDefine NotFoundError
    *
-   * @apiError NotFoundError The requested resource was not found.
+   * @apiError (Error 404) NotFoundError The requested resource was not found.
    *
    * @apiErrorExample NotFoundError
    *     HTTP/1.1 404 Not Found.

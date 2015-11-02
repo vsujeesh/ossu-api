@@ -7,7 +7,7 @@
     "start": "node index.js",
     "test": "bash scripts/test",
     "check-style": "semistandard || true",
-    "apidoc": "apidoc -i api/ -o docs/"
+    "apidoc": "apidoc -i api/ -i auth/ -o docs/"
   },
   "repository": {
     "type": "git",

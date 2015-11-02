@@ -42,7 +42,7 @@ module.exports = (app, db) => {
       it('Fails with 405 for a non-existent strategy', (done) => {
         request(app)
           .post('/auth/pinky-promise')
-          .expect(405, done);
+          .expect(404, done);
       });
 
       describe('Github', () => {
