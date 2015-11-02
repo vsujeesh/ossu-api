@@ -27,3 +27,31 @@ module.exports = (app) => {
 
   return router;
 };
+
+  /**
+   * @apiDefine user Bearer Token Required
+   * The authorization token must belong to an authenticated user.  An Authorization header and with valid bearer token is required to complete this request.
+  */
+
+  /**
+   * @apiDefine admin Administrator Users Only
+   * The authorization token must belong to an administrator. An Authorization header and with valid bearer token is required to complete this request.
+   */
+
+  /**
+   * @apiDefine NotFoundError
+   *
+   * @apiError (Error 404) NotFoundError The requested resource was not found.
+   *
+   * @apiErrorExample NotFoundError
+   *     HTTP/1.1 404 Not Found.
+   */
+
+  /**
+   * @apiDefine UnauthorizedError
+   *
+   * @apiError UnauthorizedError The provided token is not allowed to consume this resource.
+   *
+   * @apiErrorExample UnauthorizedError
+   *     HTTP/1.1 401 Unauthorized.
+   */

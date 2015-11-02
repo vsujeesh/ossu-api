@@ -19,8 +19,39 @@ module.exports = (app) => {
   router.use(helmet());
   router.use(bodyParser.json());
 
+  /**
+   * @api {get} /auth Get Strategies
+   * @apiName authGet
+   * @apiGroup Auth
+   *
+   * @apiDescription Get a list of available 3rd-party authentication strategies.
+   *
+   * @apiSuccess {array}  strategies          A list of available authentication strategies.
+   * @apiSuccess {string} strategies.name     The name of the strategy.
+   * @apiSuccess {string} strategies.auth_url The URL to intiate the strategy.
+   * @apiSuccess {mixed}  strategies.data     The data that should be used when initiating the strategy.
+   * @apiSuccess {string} strategies.callback The callback url to complete the strategy.
+   */
   router.get('/', showActiveStrategies);
 
+  /**
+   * @api {post} /auth/:strategy Finalize Strategy
+   * @apiName authFin
+   * @apiGroup Auth
+   *
+   * @apiDescription Finalize a 3rd-party authentication strategy.
+   *
+   * @apiParam {string} strategy The name of the authentication strategy, provided in 'Get Strategies'.
+   * @apiParam {string} code     A code (provided by the authentication strategy) used to complete authentication.
+   *
+   * @apiSuccess {string} token An authorization token assgned to the authenticated user.
+   * @apiSuccess {object} user  A user object. See api: 'User'
+   *
+   * @apiUse NotFoundError
+   * @apiError (Error 500 - Token error)        {string} body Could not retreive user data from authentication provider.
+   * @apiError (Error 500 - Database error)     {string} body Database error.
+   * @apiError (Error 500 - Registration error) {string} body Could not register a new user
+   */
   router.post('/:strategy', isActiveStrategy);
 
   /** Mount the strategy-specific router */
@@ -45,9 +76,9 @@ function showActiveStrategies (req, res) {
   let strategies = active_strategies.map((strategy) => {
     return {
       name: strategy.name,
-      callback: '/auth/' + strategy.endpoint,
+      auth_url: strategy.url,
       data: strategy.data,
-      auth_url: strategy.url
+      callback: '/auth/' + strategy.endpoint
     };
   });
 
@@ -69,6 +100,6 @@ function isActiveStrategy (req, res, next) {
   if (active === true) {
     next();
   } else {
-    res.sendStatus(405).end();
+    res.sendStatus(404).end();
   }
 }

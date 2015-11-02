@@ -5,46 +5,10 @@ let express = require('express');
 
 module.exports = (Controller) => {
   let router = express.Router();
-
   /**
-   * @apiDefine authenticated Authenticated access only
-   * Authentication via oAuth is required for this request.
-   */
-
-  /**
-   * @apiDefine admin Admin access only
-   * Administrator permissions are required for this request.
-   */
-
-  /**
-   * @apiDefine UserNotFoundError
+   * @apiDefine userObject A user object.
    *
-   * @apiError UserNotFound The <code>id</code> of the User was not found.
-   *
-   * @apiErrorExample Error-Response:
-   *     HTTP/1.1 400 Bad Request
-   */
-
-  /**
-   * @apiDefine UserNotAuthenticatedError
-   *
-   * @apiError UserNotAuthenticated Only authencicated users can access the data.
-   *
-   * @apiErrorExample Error-Response:
-   *     HTTP/1.1 403 Forbidden
-   */
-
-  /**
-   * @api {get} /api/user/ Get a list of User data
-   * @apiName ListUsers
-   * @apiGroup User
-   * @apiPermission none
-   *
-   * @apiDescription Fetches a list of user profiles.
-   *
-   * @apiExample Example usage:
-   * curl -H "Content-Type: application/json" http://localhost:8080/api/users/
-   *
+   * @apiSuccess {String}   _id             Database object ID.
    * @apiSuccess {String}   username        Fullname of the User.
    * @apiSuccess {String}   email           Email address.
    * @apiSuccess {Object}   github          GitHub Profile info.
@@ -59,19 +23,30 @@ module.exports = (Controller) => {
    * @apiSuccess {Object}   website         Website Info.
    * @apiSuccess {String}   website.title   Title.
    * @apiSuccess {String}   website.link    URL.
-   * @apiSuccess {Object}   account         Internal user options
    * @apiSuccess {Object}   curriculum      Curriculum the user is enrolled in.
+   * @apiSuccess {Object}   account         Internal user options
    * @apiSuccess {Object}   location        Location information.
+   */
+
+  /**
+   * @api {get} /api/user/ List
+   * @apiName ListUsers
+   * @apiGroup User
    *
-   * @apiUse UserNotFoundError
+   * @apiDescription Fetches a list of user profiles.
+   *
+   * @apiExample Example usage:
+   * curl -H "Content-Type: application/json" http://localhost:8080/api/users/
+   *
+   * @apiSuccess {Object[]} users           A list of user profiles. See: 'Get User'
+   *
    */
   router.get('/', Controller.show);
 
   /**
-   * @api {get} /api/user/:id Get User
+   * @api {get} /api/users/:id Get One
    * @apiName GetUser
    * @apiGroup User
-   * @apiPermission none
    *
    * @apiDescription Fetches a user's profile data.
    *
@@ -80,67 +55,33 @@ module.exports = (Controller) => {
    * @apiExample Example usage:
    * curl -H "Content-Type: application/json" http://localhost:8080/api/users/[id]
    *
-   * @apiSuccess {String}   username        Fullname of the User.
-   * @apiSuccess {String}   email           Email address.
-   * @apiSuccess {Object}   github          GitHub Profile info.
-   * @apiSuccess {String}   github.nick     User handle.
-   * @apiSuccess {String}   github.link     Profile link.
-   * @apiSuccess {Object}   twitter         Twitter Profilie info.
-   * @apiSuccess {String}   twitter.nick    User handle.
-   * @apiSuccess {String}   twitter.link    Feed link.
-   * @apiSuccess {Object}   linkedin        LinkedIn Profile info.
-   * @apiSuccess {String}   linkedin.nick   User handle.
-   * @apiSuccess {String}   linkedin.link   Profile link.
-   * @apiSuccess {Object}   website         Website Info.
-   * @apiSuccess {String}   website.title   Title.
-   * @apiSuccess {String}   website.link    URL.
-   * @apiSuccess {Object}   account         Internal user options
-   * @apiSuccess {Object}   curriculum      Curriculum the user is enrolled in.
-   * @apiSuccess {Object}   location        Location information.
-   *
-   * @apiUse UserNotFoundError
+   * @apiUse userObject
+   * @apiUse NotFoundError
    */
   router.get('/:id', Controller.get);
 
   /**
-   * @api {get} /api/user/ Create User
+   * @api {post} /api/users Create
    * @apiName CreateUser
    * @apiGroup User
-   * @apiPermission authenticated
+   * @apiPermission admin
    *
    * @apiDescription Creates a user profile.
    *
    * @apiExample Example usage:
    * curl -H "Content-Type: application/json" -X POST -d '{ "username":"Sam", "email":"samwise@theshire" }' http://localhost:8080/api/users/
    *
-   * @apiSuccess {String}   username        Fullname of the User.
-   * @apiSuccess {String}   email           Email address.
-   * @apiSuccess {Object}   github          GitHub Profile info.
-   * @apiSuccess {String}   github.nick     User handle.
-   * @apiSuccess {String}   github.link     Profile link.
-   * @apiSuccess {Object}   twitter         Twitter Profilie info.
-   * @apiSuccess {String}   twitter.nick    User handle.
-   * @apiSuccess {String}   twitter.link    Feed link.
-   * @apiSuccess {Object}   linkedin        LinkedIn Profile info.
-   * @apiSuccess {String}   linkedin.nick   User handle.
-   * @apiSuccess {String}   linkedin.link   Profile link.
-   * @apiSuccess {Object}   website         Website Info.
-   * @apiSuccess {String}   website.title   Title.
-   * @apiSuccess {String}   website.link    URL.
-   * @apiSuccess {Object}   account         Internal user options
-   * @apiSuccess {Object}   curriculum      Curriculum the user is enrolled in.
-   * @apiSuccess {Object}   location        Location information.
-   *
-   * @apiUse UserNotFoundError
-   * @apiUse UserNotAuthenticatedError
+   * @apiUse userObject
+   * @apiUse NotFoundError
+   * @apiUse UnauthorizedError
    */
   router.post('/', Controller.create);
 
   /**
-   * @api {get} /api/user/:id Update User
+   * @api {put} /api/users/:id Update
    * @apiName UpdateUser
    * @apiGroup User
-   * @apiPermission authenticated
+   * @apiPermission user
    *
    * @apiDescription Updates a user profile.
    *
@@ -149,34 +90,18 @@ module.exports = (Controller) => {
    * @apiExample Example usage:
    * curl -H "Content-Type: application/json" -X PUT -d '{ "username":"Sam", "email":"samwise@theshire" }' http://localhost:8080/api/users/[id]
    *
-   * @apiSuccess {String}   username        Fullname of the User.
-   * @apiSuccess {String}   email           Email address.
-   * @apiSuccess {Object}   github          GitHub Profile info.
-   * @apiSuccess {String}   github.nick     User handle.
-   * @apiSuccess {String}   github.link     Profile link.
-   * @apiSuccess {Object}   twitter         Twitter Profilie info.
-   * @apiSuccess {String}   twitter.nick    User handle.
-   * @apiSuccess {String}   twitter.link    Feed link.
-   * @apiSuccess {Object}   linkedin        LinkedIn Profile info.
-   * @apiSuccess {String}   linkedin.nick   User handle.
-   * @apiSuccess {String}   linkedin.link   Profile link.
-   * @apiSuccess {Object}   website         Website Info.
-   * @apiSuccess {String}   website.title   Title.
-   * @apiSuccess {String}   website.link    URL.
-   * @apiSuccess {Object}   account         Internal user options
-   * @apiSuccess {Object}   curriculum      Curriculum the user is enrolled in.
-   * @apiSuccess {Object}   location        Location information.
-   *
-   * @apiUse UserNotFoundError
-   * @apiUse UserNotAuthenticatedError
+   * @apiUse userObject
+   * @apiUse NotFoundError
+   * @apiUse UnauthorizedError
    */
   router.put('/:id', Controller.update);
 
   /**
-   * @api {get} /api/user/:id Delete User
+   * @api {delete} /api/users/:id Delete
    * @apiName DeleteUser
    * @apiGroup User
-   * @apiPermission authenticated
+   * @apiPermission admin
+   * @apiPermission user
    *
    * @apiDescription Deletes a user profile.
    *
@@ -185,10 +110,13 @@ module.exports = (Controller) => {
    * @apiExample Example usage:
    * curl -H "Content-Type: application/json" -X DELETE http://localhost:8080/api/users/[id]
    *
-   * @apiUse UserNotFoundError
-   * @apiUse UserNotAuthenticatedError
+   * @apiSuccess (204) body No Content.
+   *
+   * @apiUse NotFoundError
+   * @apiUse UnauthorizedError
    */
   router.delete('/:id', Controller.destroy);
 
   return router;
 };
+
