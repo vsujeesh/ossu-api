@@ -10,13 +10,13 @@ Take a look at `.envsample` and rename it to `.env`. Edit the values according t
 
 ### Start the server
 ```
-npm start
+$ npm start
 ```
 
 ### Test an api route
-
-`curl localhost:PORT/api/sample`
-
+```
+$ curl localhost:PORT/api/sample
+```
 
 # Project Structure
 * `/api/index.js` is the base api file, from here, we load models.
@@ -24,4 +24,7 @@ npm start
 * `/models` is the folder for individual model files
 
 # Contribute
-Check out the dev board for todo lists. [link](https://hansoftx.com/organization/59f76037ca6fe250d2eb8702/bf3c9bd6113eb354388b55ce)
+
+[How to contribute to Open Source Society University API server](https://github.com/open-source-society/ossu-api/blob/master/CONTRIBUTING.md)
+
+Thank you for your interest in contributing!

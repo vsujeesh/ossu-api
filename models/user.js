@@ -5,17 +5,28 @@ let Schema = mongoose.Schema;
 
 module.exports = () => {
   let userSchema = new Schema({
-    fname: String,
-    lname: String,
+    name: { type: String, index: true },
     email: { type: String, index: true },
-    github: { type: String, index: true },
-    twitter: String,
-    linkedin: String,
-
+    github: {
+      id: { type: Number, index: true },
+      nick: { type: String, index: true },
+      link: String
+    },
+    twitter: {
+      nick: { type: String, index: true },
+      link: String
+    },
+    linkedin: {
+      nick: { type: String, index: true },
+      link: String
+    },
+    website: {
+      title: String,
+      link: String
+    },
     account: {
       admin: { type: Boolean, default: false },
       active: { type: Boolean, default: false },
-      lastlogin: { type: Date, default: Date.now },
       registered: { type: Date, default: Date.now }
     },
 
@@ -34,30 +45,66 @@ module.exports = () => {
     } ],
 
     /*
-    *  We should let users choose whether or not to share a location. If not it can deafult to be based on their ip when they register.
-    *  display would allow a user to opt-out of sharing this information on their personal page.
-    * just use a city and country for now
+     * Store the location in a string. Let a mapping api figure out the exact location.
+     * Let users choose whether or not to share a location.
     */
     location: {
       public: { type: Boolean, default: true },
-      city: String,
-      country: String
-      // lat:      Number,
-      // lon:      Number
+      string: String
     }
-
   });
 
-  // static methods
-  // userSchema.statics.
+  /** Static Methods **/
 
-  // instance methods
+  /**
+   * Find a user record using a github id.
+   */
+  userSchema.static('findByGithubId', function (id, cb) {
+    return this.find({ 'github.id': parseInt(id, 10) }, cb);
+  });
 
-  // userSchema.methods.setCoordinates = function(cb) {
-  //   // compute coordinates using a map library
-  //   // save under this.lat and this.lon
-  //   // cb()
-  // }
+  /**
+   * Register a user using the response of a Github api.
+   */
+  userSchema.static('createFromGithub', function (data, cb) {
+    let user = {
+      name: data.name,
+      email: data.email,
+      github: {
+        id: data.id,
+        nick: data.login,
+        link: data.html_url
+      },
+      account: {
+        active: true
+      }
+    };
+
+    if (data.blog.length > 0) {
+      user.website = {
+        title: 'Blog',
+        link: data.blog
+      };
+    }
+
+    if (data.location.length > 0) {
+      user.location = { string: data.location };
+    }
+
+    return this.create(user, cb);
+  });
+
+  /** Instance Methods **/
+
+  /**
+   * Returns data to use in the json-web-token.
+   */
+  userSchema.method('tokenPayload', function () {
+    return {
+      _id: this._id,
+      admin: this.account.admin || false
+    };
+  });
 
   return mongoose.model('user', userSchema);
 };
