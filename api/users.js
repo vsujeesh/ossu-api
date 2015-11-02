@@ -81,7 +81,7 @@ module.exports = (Controller) => {
    * @api {put} /api/users/:id Update
    * @apiName UpdateUser
    * @apiGroup User
-   * @apiPermission authorized
+   * @apiPermission user
    *
    * @apiDescription Updates a user profile.
    *
@@ -101,7 +101,7 @@ module.exports = (Controller) => {
    * @apiName DeleteUser
    * @apiGroup User
    * @apiPermission admin
-   * @apiPermission authorized
+   * @apiPermission user
    *
    * @apiDescription Deletes a user profile.
    *

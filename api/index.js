@@ -29,13 +29,13 @@ module.exports = (app) => {
 };
 
   /**
-   * @apiDefine authorized Bearer Token Required
-   * Authorization header and with valid bearer token is required to complete this request.
+   * @apiDefine user Bearer Token Required
+   * The authorization token must belong to an authenticated user.  An Authorization header and with valid bearer token is required to complete this request.
   */
 
   /**
    * @apiDefine admin Administrator Users Only
-   * The authorization token and the database user must contain administrator credentials.
+   * The authorization token must belong to an administrator. An Authorization header and with valid bearer token is required to complete this request.
    */
 
   /**
