@@ -1,6 +1,6 @@
 [
   {
-    "username": "Marcus Aurelius",
+    "name": "Marcus Aurelius",
     "email": "marcusaurelius@rome.gov",
     "github": {
       "nick": "@stoicismftw",
@@ -20,7 +20,7 @@
     }
   },
   {
-    "username": "Imperator Nero Cladius Divi Claudius filius Caesar Augustus Germanicus",
+    "name": "Imperator Nero Cladius Divi Claudius filius Caesar Augustus Germanicus",
     "email": "itsgettinhotinhurr@aol.com",
     "linkedin": {
       "nick": "Imperator Firefighting - Pay us or we'll toast you",
@@ -28,7 +28,7 @@
     }
   },
   {
-    "username": "Spartacus",
+    "name": "Spartacus",
     "email": "spartacus@gmail.com",
     "github": {
       "nick": "@bringerofrain",

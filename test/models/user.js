@@ -21,7 +21,7 @@ module.exports = (db) => {
         expect(err).to.be.null;
         expect(model).to.not.be.null;
         expect(model).to.have.property('_id');
-        expect(model).to.have.property('username', 'Marcus Aurelius');
+        expect(model).to.have.property('name', 'Marcus Aurelius');
         expect(model).to.have.property('email', 'marcusaurelius@rome.gov');
         expect(model).to.have.deep.property('github.nick', '@stoicismftw');
         expect(model).to.have.deep.property('github.link', 'https://github.com/soicismftw');
