@@ -61,7 +61,7 @@ module.exports = (Controller) => {
   router.get('/:id', Controller.get);
 
   /**
-   * @api {get} /api/users Create
+   * @api {post} /api/users Create
    * @apiName CreateUser
    * @apiGroup User
    * @apiPermission admin
@@ -78,7 +78,7 @@ module.exports = (Controller) => {
   router.post('/', Controller.create);
 
   /**
-   * @api {get} /api/users/:id Update
+   * @api {put} /api/users/:id Update
    * @apiName UpdateUser
    * @apiGroup User
    * @apiPermission authorized
@@ -97,10 +97,11 @@ module.exports = (Controller) => {
   router.put('/:id', Controller.update);
 
   /**
-   * @api {get} /api/users/:id Delete
+   * @api {delete} /api/users/:id Delete
    * @apiName DeleteUser
    * @apiGroup User
    * @apiPermission admin
+   * @apiPermission authorized
    *
    * @apiDescription Deletes a user profile.
    *
