@@ -9,9 +9,18 @@
 Thank you for your interest in contributing!
 
 ## Project Structure
-* `/api/index.js` is the base api file, from here, we mount API routes
-* `/auth/index.js` will be the authentication api file. Add auth strategies to files in the `/auth` folder
-* `/models` is the folder for individual model files
+
+* `/api/` - Main API routes
+* `/auth/` - Auth API
+* `/models/` - Mongoose models
+* `/controllers/` - API controllers
+* `/helpers/` - Helper functions
+* `/helpers/server.js` - Express.js server definition
+* `/helpers/loader.js` - Require's all the modules in a folder
+* `/test/api` - API tests
+* `/test/models` - Model tests
+
+See the [API documentation](http://open-source-society.github.io/ossu-api/docs/index.html).
 
 ## Installation
 
@@ -25,7 +34,7 @@ $ git clone git@github.com:open-source-society/ossu-api.git
 ```
 
 ### Configure Environment
-Take a look at `.envsample` and rename it to `.env`. Edit the values according to your environment (please do not bring `.env` into source control)
+Rename the file `.envsample` as `.env`. Edit the values according to your environment.
 
 ### Install the dependencies (via NPM)
 ```bash
