@@ -2,29 +2,68 @@
 
 **Open Source Society University API server**
 
-### Install the server
-Take a look at `INSTALLING.md`
-
-### Configure environment
-Take a look at `.envsample` and rename it to `.env`. Edit the values according to your environment (please do not bring `.env` into source control)
-
-### Start the server
-```
-$ npm start
-```
-
-### Test an api route
-```
-$ curl localhost:PORT/api/sample
-```
-
-# Project Structure
-* `/api/index.js` is the base api file, from here, we load models.
-* `/auth/index.js` will be the authentication api file. Add auth strategies to files in thie `/auth` folder
-* `/models` is the folder for individual model files
-
-# Contribute
+## Contribute
 
 [How to contribute to Open Source Society University API server](https://github.com/open-source-society/ossu-api/blob/master/CONTRIBUTING.md)
 
 Thank you for your interest in contributing!
+
+## Project Structure
+
+* `/api/` - Main API routes
+* `/auth/` - Auth API
+* `/models/` - Mongoose models
+* `/controllers/` - API controllers
+* `/helpers/` - Helper functions
+* `/helpers/server.js` - Express.js server definition
+* `/helpers/loader.js` - Require's all the modules in a folder
+* `/test/api` - API tests
+* `/test/models` - Model tests
+
+See the [API documentation](http://open-source-society.github.io/ossu-api/docs/index.html).
+
+## Installation
+
+### Install Prerequisites
+* [Node.js](https://nodejs.org/en/download/)
+* [MongoDB](https://www.mongodb.org/downloads#production)
+
+### Clone the repository
+```bash
+$ git clone git@github.com:open-source-society/ossu-api.git
+```
+
+### Configure Environment
+Rename the file `.envsample` as `.env`. Edit the values according to your environment.
+
+### Install the dependencies (via NPM)
+```bash
+$ npm install
+```
+
+## Running Server
+Start MongoDB
+```bash
+$ mongod
+```
+
+Start server
+```bash
+$ npm start
+```
+
+Hit endpoint
+```
+$ curl localhost:$PORT/api/users
+```
+
+## Running Tests
+Run all tests
+```bash
+$ npm test
+```
+
+Run SemiStandard style checks
+```bash
+$ npm run check-style
+```
