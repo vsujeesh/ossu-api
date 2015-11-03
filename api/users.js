@@ -119,4 +119,3 @@ module.exports = (Controller) => {
 
   return router;
 };
-

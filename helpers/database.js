@@ -59,4 +59,3 @@ function onDatabaseDisconnection () {
 function onDatabaseError (err) {
   console.log('Database connection has an error: ' + err);
 }
-
