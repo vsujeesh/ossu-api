@@ -4,3 +4,5 @@ node_js:
   - "4.2"
 before_script:
   - touch .env
+  - sleep 15
+  - mongo mydb_test --eval 'db.addUser("travis", "test");'
