@@ -8,3 +8,5 @@ before_script:
   - touch .env
   - sleep 15
   - mongo mydb_test --eval 'db.addUser("travis", "test");'
+notifications:
+  slack: open-source-society:L3uqWqQoymzfjXpEtBBixtgo
