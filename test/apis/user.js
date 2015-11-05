@@ -9,16 +9,18 @@ module.exports = (app, db) => {
   describe('User API', () => {
     // setup the model
     let Model = db.User;
-    let user1 = new Model(fixture[0]);
-    let user2 = new Model(fixture[1]);
+    let user1 = null;
+    let user2 = null;
 
     beforeEach((done) => {
       Model.remove()
-        .then(() => { user1 = new Model(fixture[0]); })
-        .then(user1.save())
-        .then(() => { user2 = new Model(fixture[1]); })
-        .then(user2.save)
-        .then(done());
+        .then(() => {
+          user1 = new Model(fixture[0]);
+          user2 = new Model(fixture[1]);
+        })
+        .then(() => { return user1.save(); })
+        .then(() => { return user2.save(); })
+        .then(() => { done(); });
     });
 
     after((done) => done());
