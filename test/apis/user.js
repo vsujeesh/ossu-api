@@ -4,6 +4,7 @@
 let expect = require('chai').expect;
 let request = require('supertest');
 let fixture = require('../fixtures/users.json');
+let mongoose = require('mongoose');
 
 module.exports = (app, db) => {
   describe('User API', () => {
@@ -53,6 +54,20 @@ module.exports = (app, db) => {
             expect(res.body.name).to.equal(user1.name);
             done();
           });
+      });
+
+      it('should return 404 when the user cannot be found', (done) => {
+        request(app)
+          .get('/api/users/' + mongoose.Types.ObjectId())
+          .set('Accept', 'application/json')
+          .expect(404, done);
+      });
+
+      it('should return 404 when the :id is not a Mongoose ObjectId', (done) => {
+        request(app)
+          .get('/api/users/123456')
+          .set('Accept', 'application/json')
+          .expect(404, done);
       });
     });
 

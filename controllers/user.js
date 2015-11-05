@@ -39,11 +39,20 @@ var UserController = function (db) {
   UserController.prototype.get = (req, res) => {
     Model.findById(req.params.id, (err, user) => {
       if (err) {
-        res.status(400).send(err);
+        if (err.name === 'CastError' && err.kind === 'ObjectId') {
+          res.status(404).send();
+        } else {
+          res.status(400).send(err);
+        }
         return;
       }
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(user);
+
+      if (user) {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).json(user);
+      } else {
+        res.status(404).send();
+      }
     });
   };
 
