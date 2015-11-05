@@ -86,6 +86,13 @@ module.exports = (app, db) => {
             done();
           });
       });
+      it('should require administrator authorization');
+      it('should not create user curriculum data, even if present');
+      it('should return 400 when the payload object does not contain all required fields');
+      it('should return 400 when the payload contains one or more invalid fields');
+      it('should return 400 when the payload is empty or not an object');
+      it('should return 404 when the user cannot be found');
+      it('should return 404 when the :id is not a Mongoose ObjectId');
     });
 
     describe('PUT /users/:id', () => {
@@ -103,6 +110,15 @@ module.exports = (app, db) => {
             done();
           });
       });
+      it('should require member authorization to edit your own profile');
+      it('should require administrator authorization to edit another user\'s profile');
+      it('should not update user curriculum data'); // use seperate endpoint
+      it('should not update user account data'); // use seperate endpoint
+      it('should ignore invalid fields');
+      it('should return 400 when the payload object does not contain at least one valid field');
+      it('should return 400 when the payload is empty or not an object');
+      it('should return 404 when the user cannot be found');
+      it('should return 404 when the :id is not a Mongoose ObjectId');
     });
 
     describe('DELETE /users/:id', () => {
@@ -115,6 +131,10 @@ module.exports = (app, db) => {
             done();
           });
       });
+      it('should require member authorization to delete your own profile');
+      it('should require administrator authorization to delete another user\'s profile');
+      it('should return 404 when the user cannot be found');
+      it('should return 404 when the :id is not a Mongoose ObjectId');
     });
   });
 };
