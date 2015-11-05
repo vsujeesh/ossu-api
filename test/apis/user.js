@@ -25,71 +25,81 @@ module.exports = (app, db) => {
 
     after((done) => done());
 
-    it('should list all users', (done) => {
-      request(app)
-        .get('/api/users')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end((err, res) => {
-          expect(err).to.be.null;
-          expect(res.body[0].name).to.equal(user1.name);
-          expect(res.body[1].name).to.equal(user2.name);
-          done();
-        });
+    describe('GET /users', () => {
+      it('should list all users', (done) => {
+        request(app)
+          .get('/api/users')
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res.body[0].name).to.equal(user1.name);
+            expect(res.body[1].name).to.equal(user2.name);
+            done();
+          });
+      });
     });
 
-    it('should get a user by id', (done) => {
-      request(app)
-        .get('/api/users/' + user1._id)
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .end((err, res) => {
-          expect(err).to.be.null;
-          expect(res.body.name).to.equal(user1.name);
-          done();
-        });
+    describe('GET /users/:id', () => {
+      it('should get a user by id', (done) => {
+        request(app)
+          .get('/api/users/' + user1._id)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .expect(200)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res.body.name).to.equal(user1.name);
+            done();
+          });
+      });
     });
 
-    it('should create a user', (done) => {
-      let user = new Model(fixture[2]);
-      request(app)
-        .post('/api/users')
-        .set('Accept', 'applicatoin/json')
-        .send(user)
-        .expect('Content-Type', /json/)
-        .expect(201)
-        .end((err, res) => {
-          expect(err).to.be.null;
-          expect(res.body.name).to.equal(user.name);
-          done();
-        });
+    describe('POST /users', () => {
+      it('should create a user', (done) => {
+        let user = new Model(fixture[2]);
+        request(app)
+          .post('/api/users')
+          .set('Accept', 'applicatoin/json')
+          .send(user)
+          .expect('Content-Type', /json/)
+          .expect(201)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res.body.name).to.equal(user.name);
+            done();
+          });
+      });
     });
 
-    it('should update a user\'s name', (done) => {
-      let user = { name: 'Marcus Badass Aurelius' };
-      request(app)
-        .put('/api/users/' + user1._id)
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .send(user)
-        .expect(200)
-        .end((err, res) => {
-          expect(err).to.be.null;
-          expect(res.body.name).to.equal(user.name);
-          done();
-        });
+    describe('PUT /users/:id', () => {
+      it('should update a user\'s name', (done) => {
+        let user = { name: 'Marcus Badass Aurelius' };
+        request(app)
+          .put('/api/users/' + user1._id)
+          .set('Accept', 'application/json')
+          .expect('Content-Type', /json/)
+          .send(user)
+          .expect(200)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            expect(res.body.name).to.equal(user.name);
+            done();
+          });
+      });
     });
 
-    it('should delete a user', (done) => {
-      request(app)
-        .delete('/api/users/' + user1._id)
-        .expect(204)
-        .end((err, res) => {
-          expect(err).to.be.null;
-          done();
-        });
+    describe('DELETE /users/:id', () => {
+      it('should delete a user', (done) => {
+        request(app)
+          .delete('/api/users/' + user1._id)
+          .expect(204)
+          .end((err, res) => {
+            expect(err).to.be.null;
+            done();
+          });
+      });
     });
   });
 };
