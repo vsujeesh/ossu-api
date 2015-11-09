@@ -22,11 +22,13 @@ module.exports = (app) => {
   // load controllers
   let Controllers = require('../controllers')(db);
 
-  // Universal API policies
+  // API policies
   router.use(Controllers.Util.acceptsJSON);
+  router.post('*',Controllers.Util.requirePayload);
+  router.put('*', Controllers.Util.requirePayload);
 
   // mount the users api
-  router.use('/users', UsersApi(Controllers.User));
+  router.use('/users', UsersApi(Controllers.User, Controllers.Util));
 
   return router;
 };
