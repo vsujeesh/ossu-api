@@ -76,7 +76,7 @@ module.exports = (app, db) => {
         let user = new Model(fixture[2]);
         request(app)
           .post('/api/users')
-          .set('Accept', 'applicatoin/json')
+          .set('Accept', 'application/json')
           .send(user)
           .expect('Content-Type', /json/)
           .expect(201)
@@ -125,6 +125,7 @@ module.exports = (app, db) => {
       it('should delete a user', (done) => {
         request(app)
           .delete('/api/users/' + user1._id)
+          .set('Accept', 'application/json')
           .expect(204)
           .end((err, res) => {
             expect(err).to.be.null;
