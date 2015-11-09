@@ -22,6 +22,9 @@ module.exports = (app) => {
   // load controllers
   let Controllers = require('../controllers')(db);
 
+  // Universal API policies
+  router.use(Controllers.Util.acceptsJSON);
+
   // mount the users api
   router.use('/users', UsersApi(Controllers.User));
 
