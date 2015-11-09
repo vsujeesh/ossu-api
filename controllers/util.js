@@ -5,6 +5,17 @@
  */
 var UtilController = function () {
   /**
+   * Attaches non-middleware methods to the express application.
+   */
+  UtilController.prototype.attatch = function (app) {
+    if (app && typeof (app) === 'function') {
+      app.set('util', {
+        err: _stdError
+      });
+    }
+  };
+
+  /**
    * The request must have a payload that is not empty.
    * Payload can be a non-empty string or array...or an object with at least one property.
    */

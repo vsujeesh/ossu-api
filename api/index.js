@@ -22,9 +22,12 @@ module.exports = (app) => {
   // load controllers
   let Controllers = require('../controllers')(db);
 
+  // Attatch utilities
+  Controllers.Util.attatch(app);
+
   // API policies
   router.use(Controllers.Util.acceptsJSON);
-  router.post('*',Controllers.Util.requirePayload);
+  router.post('*', Controllers.Util.requirePayload);
   router.put('*', Controllers.Util.requirePayload);
 
   // mount the users api
