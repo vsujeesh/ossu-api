@@ -66,7 +66,8 @@ var UtilController = function () {
    */
   function _stdError (message, data) {
     return {
-      message: message || 'No message.',
+      success: false,
+      reason: message || 'Not specified.',
       data: data || undefined
     };
   }
